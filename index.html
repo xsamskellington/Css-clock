@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS clock</title>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="clock-face">
+            <div class="hand hour-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand second-hand"></div>    
+        </div>
+    </div>
+
+
+<style>
+    html{
+        background-image: url("https://ak.picdn.net/shutterstock/videos/1040937500/thumb/1.jpg");
+        background-size: cover;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        font-size: 10px;
+    }
+
+    body{
+        margin: 0;
+        font-size: 2rem;
+        display: flex;
+        flex: 1;
+        min-height: 100vh;
+        align-items: center;
+    }
+
+    .clock{
+        width: 30rem;
+        height: 30rem;
+        border: 18px solid paleturquoise;
+        border-radius: 50%;
+        margin: 50px auto;
+        position: relative;
+        padding: 2rem;
+        box-shadow: rgb(255,225,236);
+    }
+
+    .clock-face{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform: translateY(-3px);
+    }
+
+    .hand{
+        width: 50%;
+        height: 6px;
+        background:indigo;
+        position: absolute;
+        top: 50%;
+        transform-origin: 100%;
+        transform: rotate(90deg);
+        transition: all 0.05s;
+        transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+</style>
+
+<script>
+const secondsHand = document.querySelector('.second-hand');
+const minutesHand = document.querySelector('.min-hand');
+const hourHand = document.querySelector('.hour-hand');
+
+
+function setDate(){
+    const now = new Date();
+    const seconds = now.getSeconds(); 
+    const minutes = now.getMinutes();
+    const hour = now.getHours();
+
+    const secondsDegrees = ((seconds / 60) * 360) + 90;
+    secondsHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+    const minutesDegrees = ((minutes / 60) * 360) + 90;
+    minutesHand.style.transform = `rotate(${minutesDegrees}deg)`;
+
+    const hourDegrees = ((hour / 12) * 360) + 90;
+    hourHand.style.transform = `rotate(${hourDegrees}deg)`
+
+    if(seconds == 0){
+        secondsHand.style.transitionDuration = '0s';
+        minutesHand.style.transitionDuration = '0s';
+        hourHand.style.transitionDuration = '0s';
+    } else {
+        secondsHand.style.transitionDuration = '0.05s';
+        minutesHand.style.transitionDuration = '0.05s';
+        hourHand.style.transitionDuration = '0.05s';
+    };
+
+
+}
+
+setInterval(setDate, 1000);
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
